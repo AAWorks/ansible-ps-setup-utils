@@ -7,6 +7,7 @@
 #
 # A way to check that all of your expected hosts are accessable is:
 # ansible all -m ping --ask-become-pass --> extremely useful
+# --> use -vvv to expand any pop-up errors
 #
 # Full perfSONAR hosts inventory grouped by installation bundle
 [all:vars]
