@@ -6,28 +6,28 @@
 # https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html
 #
 # A way to check that all of your expected hosts are accessable is:
-# ansible all -m ping --ask-become-pass
+# ansible all -m ping --ask-become-pass --> extremely useful
 #
 # Full perfSONAR hosts inventory grouped by installation bundle
 [all:vars]
 ansible_become=True
-ansible_become_user=root
-#ansible_become_method=su
+ansible_become_user=root --> can use root if not use created user1 (if using config yml)
+#ansible_become_method=su --> not used if initial server config is done correctly
 
 [ps_testpoint]
-206.81.14.183
+206.81.14.183 -> setup testpoint (testpoint should have docker tp preset?)
 
 [ps_toolkit]
-
+didnt use
 
 [ps_archive]
-137.184.195.16
+137.184.195.16 -> archiver (no prior pre?)
 
 [ps_maddash]
-167.172.145.5
+167.172.145.5 -> maddash (should have wui set up, other than that seems to be nil)
 
 [ps_psconfig_publisher]
-64.227.13.13
+64.227.13.13 -> publisher (see role)
 
 [ps_psconfig_web_admin]
-64.227.3.174
+64.227.3.174 -> web admin (see role)
