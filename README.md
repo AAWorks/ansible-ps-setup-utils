@@ -1,6 +1,21 @@
 # unorganized-ansibleps-utils
 Unorganized storage for reusable ps scripts
 
+## Server Setup yml
+Prereq:
+- Ansible-control must have ssh access to server root - can be done upon server creation (w/ digitalocean)
+
+Functionality:
+Install aptitude, which is preferred by Ansible as an alternative to the apt package manager.
+Create a new sudo user and set up passwordless sudo.
+Copy a local SSH public key and include it in the authorized_keys file for the new administrative user on the remote host.
+Disable password-based authentication for the root user.
+Install system packages.
+Configure the UFW firewall to only allow SSH connections and deny any other requests.
+
+## Docker Setup yml
+sets up docker container (ps testpoint) on node preconfiged with (server setup)
+
 ### Resources
 Ansible with docker:
 https://www.digitalocean.com/community/tutorials/how-to-use-ansible-to-install-and-set-up-docker-on-ubuntu-20-04
