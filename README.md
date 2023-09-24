@@ -32,6 +32,9 @@ On Host Nodes:<br>
 On Control Node:<br>
 `ansible-playbook docker-setup.yml -l server1 -u {{ username established in server-setup yml file }}`<br>
 
+### Esmond Archiver
+Needed for Maddash? | Should be handled below by maddash agent
+
 ### Host Maddash on Control Node
 **Edit ~/unorganized-ansibleps-utils/psconfig-mesh.json per user-required specs**<br>
 `cd /etc/apt/sources.list.d/`<br>
