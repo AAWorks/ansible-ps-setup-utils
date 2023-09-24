@@ -1,34 +1,45 @@
-# unorganized-ansibleps-utils
-Unorganized storage for reusable ps scripts
+# Launch Codes for PerfSonar Setup
 
-## Server Setup yml
-Prereq:
-- Ansible-control must have ssh access to server root - can be done upon server creation (w/ digitalocean)
+### Barebones Server Setup w/ Foreman 
+`apt-get -y install ca-certificates`<br>
+`cd /tmp && wget https://apt.puppet.com/puppet7-release-focal.deb`<br>
+`apt-get install /tmp/puppet7-release-focal.deb`<br>
+`wget https://deb.theforeman.org/foreman.asc -O /etc/apt/trusted.gpg.d/foreman.asc`<br>
+`echo "deb http://deb.theforeman.org/ focal 3.4" | tee /etc/apt/sources.list.d/foreman.list`<br>
+`echo "deb http://deb.theforeman.org/ plugins 3.4" | tee -a /etc/apt/sources.list.d/foreman.list`<br>
+`apt-get update && apt-get -y install foreman-installer`<br>
+`foreman-installer`<br>
 
-Functionality:
-Install aptitude, which is preferred by Ansible as an alternative to the apt package manager.
-Create a new sudo user and set up passwordless sudo.
-Copy a local SSH public key and include it in the authorized_keys file for the new administrative user on the remote host.
-Disable password-based authentication for the root user.
-Install system packages.
-Configure the UFW firewall to only allow SSH connections and deny any other requests.
+### Barebones Server Setup w/ Cobblerd
+`apt-get install cobbler cobbler-web`<br>
+**Cobblerd Settings Edits**<br>
+`cobbler check`<br>
+`cobbler sync`<br>
+`mount -o loop ubuntu-server-i386.iso /mnt` <br>
+`cobbler import --name=ubuntu-server --path=/mnt --breed=ubuntu` <br>
 
-## Docker Setup yml
-sets up docker container (ps testpoint) on node preconfiged with (server setup)
+### Barebones Server Setup w/ Ansible
+On Control Node:<br>
+`apt-add-repository ppa:ansible/ansible`<br>
+`apt update`<br>
+`apt install ansible`<br>
+`nano /etc/ansible/hosts` (Add Hosts under [servers] i.e. server1 ansible_host=203.0.113.111 and ansible_python_interpreter=/usr/bin/python3 under [all:vars])<br>
+`ansible-playbook server-setup.yml -l server1 -u root -k`<br>
+On Host Nodes:<br>
+`ansible-playbook server-setup.yml -l server1 -u {{ username established in yml file }}`<br>
 
-### Resources
-Ansible with docker:
-https://www.digitalocean.com/community/tutorials/how-to-use-ansible-to-install-and-set-up-docker-on-ubuntu-20-04
-https://www.youtube.com/watch?v=GfJl0ZRAVDY
+### PerfSonar TP On Docker Setup on Host Nodes
+On Control Node:<br>
+`ansible-playbook docker-setup.yml -l server1 -u {{ username established in server-setup yml file }}`<br>
 
-Ansible with PS:
-https://www.youtube.com/watch?v=9OyJsQB59Yg -much unexplained (good starting ground)
-https://github.com/perfsonar
-https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjit4zYtYj_AhVOkYkEHezRB2MQFnoECBoQAQ&url=https%3A%2F%2Fdocs.perfsonar.net%2F3.5rc2%2Fconfig_mesh.html&usg=AOvVaw1rwAiuBhwTH09c_qh6rvpj
-https://www.digitalocean.com/community/tutorials/how-to-use-ansible-to-automate-initial-server-setup-on-ubuntu-20-04#prerequisites - somewhat outdated/doesn't mesh well w ps configs
-
-Apache through Docker:
-https://www.digitalocean.com/community/tutorials/apache-web-server-dockerfile
-
-Maddash gui:
-https://docs.perfsonar.net/maddash_config_webui.html
+### Host Maddash on Control Node
+**Edit ~/unorganized-ansibleps-utils/psconfig-mesh.json per user-required specs**<br>
+`cd /etc/apt/sources.list.d/`<br>
+`wget http://downloads.perfsonar.net/debian/perfsonar-release.list`<br>
+`wget -qO - http://downloads.perfsonar.net/debian/perfsonar-official.gpg.key | apt-key add -`<br>
+`apt-get update`<br>
+`apt-get install maddash`<br>
+`apt-get install perfsonar-psconfig-maddash`<br>
+`systemctl start psconfig-maddash-agent`<br>
+`psconfig remote add ~/unorganized-ansibleps-utils/psconfig-mesh.json`<br>
+`systemctl restart psconfig-maddash-agent`<br>
