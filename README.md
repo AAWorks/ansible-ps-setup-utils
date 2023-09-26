@@ -12,7 +12,7 @@
 
 ### Barebones Server Setup w/ Cobblerd
 `apt-get install cobbler cobbler-web`<br>
-**Cobblerd Settings Edits**<br>
+**Specific Cobblerd Settings Edits need to be made based on desired system setup - barebones ones are available on their docs page**<br>
 `cobbler check`<br>
 `cobbler sync`<br>
 `mount -o loop ubuntu-server-i386.iso /mnt` <br>
