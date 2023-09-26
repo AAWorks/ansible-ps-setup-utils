@@ -1,0 +1,3 @@
+mkdir -p ~/.ssh
+echo ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZiKwSfmxyarx6C0ivH9ebsDi2T0C/o0gHht+tfWiJj5/2lDbh7S/UnptP0iKIbg/pARCFKdauXC/lS/uBPnYFEx8aUIRA9/o9Wn/CeNCK+Vl3V1JtasuDMtt8itb7fRsMxb1F42nckLBE1rUzgFx9UhzufXn81d55AuXIz05dNQCD3e7S6zR5BQuMdLPp+cQH1Ol1wikh3ZucVdxhtK/Nx0I/uLmUG7tXW0z4qj7qoH5qjwLGSUqWM7io2QNFTXRfULHP+W6GMOpIwABLoSGQmkay6oUmTd7ykd3l1dCnNTvivnRyry181zNNivmRfpIvuER68ZYh7qxxNd4bCK2yGU/mQUv8ezUu+WQgh/8VIVlWsPl0Tf3Myv3oVShPn29vSdgjDyEtox0HD7QJmEP0zb+1SEKyeGXDtw+TBG6SBTOmhEiI2DFK2kaYUa4yDk3JuoQEqBTmbb7tcI9E8BBd8ZUKxOlkYy2zMx6MZFUAs6M2jiQ1xCP6svZaDXspStU= user1@control-node >> ~/.ssh/authorized_keys
+chmod -R go= ~/.ssh

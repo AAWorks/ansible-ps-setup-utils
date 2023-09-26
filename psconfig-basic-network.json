@@ -1,19 +1,19 @@
 {
     "addresses": {
         "lat1": {
-            "address": "lat1.perfsonar.net"
+            "address": "123.456.789"
         },
         "thr1": {
-            "address": "thr1.perfsonar.net"
+            "address": "789.456.123"
         },
        "thrlat1": {
-            "address": "thrlat1.perfsonar.net"
+            "address": "456.789.123"
         },
         "lat2": {
-            "address": "lat2.perfsonar.net"
+            "address": "789.123.456"
         },
         "thr2": {
-            "address": "thr2.perfsonar.net"
+            "address": "123.789.456"
         }
     },
     "groups": {
@@ -53,15 +53,21 @@
             }
         }
     },
-    "archives": { 
-       "esmond_archive": {
-            "archiver": "esmond",
-            "data": {
-                "url": "https://esmond.archive.perfsonar.net/esmond/perfsonar/archive",
-                "measurement-agent": "{% scheduled_by_address %}"
+    "archiver": "http",
+        "data": {
+            "schema": 3,
+            "_url": "<archiver node url>/logstash",
+            "verify-ssl": false,
+            "op": "put",
+            "_headers": {
+                "x-ps-observer": "{% scheduled_by_address %}",
+                "content-type": "application/json",
+                "Authorization":"Basic eXamPleTokEn"
             }
-        }
-    },
+        },
+        "_meta": {
+            "esmond_url": "<archiver node url>/esmond/perfsonar/archive/"
+        },
     "schedules": { 
        "every_4_hours": {
             "repeat": "PT4H",
