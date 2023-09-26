@@ -12,12 +12,12 @@ On Control Node:<br>
 6. `ansible-playbook server-setup.yml -l [name of specific host (see step 4) or all] -u root -k`<br>
 
 ### Further Server Setup w/ Cobblerd (Allows for easier iptable modification which doesn't seem necessary with docker)
-`apt-get install cobbler cobbler-web`<br>
+1. `apt-get install cobbler cobbler-web`<br>
 **Specific Cobblerd Settings Edits need to be made based on desired system setup - barebones ones are available on their docs page**<br>
-`cobbler check`<br>
-`cobbler sync`<br>
-`mount -o loop ubuntu-server-i386.iso /mnt` <br>
-`cobbler import --name=ubuntu-server --path=/mnt --breed=ubuntu` <br>
+2. `cobbler check`<br>
+3. `cobbler sync`<br>
+4. `mount -o loop ubuntu-server-i386.iso /mnt` <br>
+5. `cobbler import --name=ubuntu-server --path=/mnt --breed=ubuntu` <br>
 
 ### Barebones Server Setup w/ Foreman (Untested)
 `apt-get -y install ca-certificates`<br>
@@ -31,17 +31,17 @@ On Control Node:<br>
 
 ### PerfSonar TestPoint (Toolkit auto-configs iptables but not needed for docker seemingly) On Docker Setup on Host Nodes
 On Control Node:<br>
-`ansible-playbook docker-setup.yml -l [name of specific host (see step 4) or all] -u root -k`<br>
+1. `ansible-playbook docker-setup.yml -l [name of specific host (see step 4) or all] -u root -k`<br>
 
 ### Esmond (Legacy) Archiver (PerfSONAR 5.0 no longer suppots the esmond archiver and now runs an OpenSearch based archiver)
 Needed for MaDDash<br>
 
 ### OpenSearch Archiver
 Run local archiving via a perfSONAR toolkit node or this command:<br>
-`/usr/lib/perfsonar/archive/perfsonar-scripts/psconfig_archive.sh`<br>
+1. `/usr/lib/perfsonar/archive/perfsonar-scripts/psconfig_archive.sh`<br>
 Run archiver on a dedicated host as below:<br>
 On Control Node:<br>
-`ansible-playbook docker-setup-archiver.yml -l [name of specific host dedicated for archiver] -u root -k`<br>
+1. `ansible-playbook docker-setup-archiver.yml -l [name of specific host dedicated for archiver] -u root -k`<br>
 
 ### Host Maddash on Control Node
 **Edit ~/unorganized-ansibleps-utils/psconfig-mesh.json per user-required specs**<br>
